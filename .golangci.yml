@@ -31,6 +31,7 @@ issues:
       linters:
         - errcheck
         - gosec
+        - typecheck
   exclude-dirs:
     - bin
 

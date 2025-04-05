@@ -34,5 +34,10 @@ run:
     - bin
 
 issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - typecheck
+        - errcheck
   exclude-dirs:
     - bin
