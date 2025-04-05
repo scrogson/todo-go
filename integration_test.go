@@ -44,10 +44,12 @@ func setupGRPCServer(t *testing.T) (*grpc.ClientConn, func()) {
 		return lis.Dial()
 	}
 
-	// Use recommended NewClient approach
-	conn, err := grpc.NewClient("bufnet",
+	ctx := context.Background()
+	// Use in-memory connection directly
+	conn, err := grpc.DialContext(ctx, "bufnet",
 		grpc.WithContextDialer(dialer),
-		grpc.WithTransportCredentials(insecure.NewCredentials()))
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithBlock())
 	require.NoError(t, err)
 
 	return conn, func() {

@@ -19,6 +19,11 @@ linters-settings:
         disabled: true
       - name: unused-parameter
         disabled: true
+  staticcheck:
+    checks:
+      - all
+      # Disable the SA1019 warning for grpc.DialContext which is deprecated
+      - "-SA1019"
 
 issues:
   exclude-rules:

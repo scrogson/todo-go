@@ -14,7 +14,7 @@ A simple Todo application built with Go, Protocol Buffers, and gRPC.
 
 ## Requirements
 
-- Go 1.20+
+- Go 1.24+
 - Protocol Buffers compiler (`protoc`)
 - `protoc-gen-go` and `protoc-gen-go-grpc` plugins
 

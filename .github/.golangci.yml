@@ -1,0 +1,38 @@
+# CI-specific golangci-lint configuration
+linters:
+  enable:
+    - errcheck
+    - goimports
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - revive
+    - misspell
+    - gofmt
+
+linters-settings:
+  revive:
+    rules:
+      - name: unexported-return
+        disabled: true
+      - name: unused-parameter
+        disabled: true
+  staticcheck:
+    checks:
+      - all
+      # Disable the SA1019 warning for grpc.DialContext which is deprecated
+      - "-SA1019"
+
+run:
+  go: "1.24"
+  timeout: 5m
+  issues-exit-code: 1
+  exclude-dirs:
+    - bin
+
+issues:
+  exclude-dirs:
+    - bin
