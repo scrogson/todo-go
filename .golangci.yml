@@ -36,4 +36,6 @@ issues:
     - bin
 
 run:
-  timeout: 2m
+  # Set this to ensure compatibility with Github Actions
+  go: "1.24"
+  timeout: 5m

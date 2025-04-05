@@ -31,7 +31,7 @@ jobs:
         run: go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.57.0
 
       - name: Lint
-        run: golangci-lint run --config=.github/.golangci.yml -v ./...
+        run: golangci-lint run -v ./...
         env:
           GOVERSION: "1.24"
 
