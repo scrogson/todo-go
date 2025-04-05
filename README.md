@@ -1,5 +1,7 @@
 # Todo CLI Application
 
+[![Go CI](https://github.com/scrogson/todo-golang/actions/workflows/ci.yml/badge.svg)](https://github.com/scrogson/todo-golang/actions/workflows/ci.yml)
+
 A simple Todo application built with Go, Protocol Buffers, and gRPC.
 
 ## Features
@@ -121,6 +123,48 @@ This creates binaries for Linux, macOS, and Windows in the `bin/` directory.
 
 ```bash
 make test
+```
+
+### Code Quality
+
+#### Running Linters
+
+```bash
+# Install linters
+make lint-install
+
+# Run linters
+make lint
+
+# Auto-fix linting issues
+make lint-fix
+```
+
+### Benchmarking
+
+```bash
+# Run all benchmarks
+make bench
+
+# Run only storage benchmarks
+make bench-storage
+```
+
+## Continuous Integration
+
+This project uses GitHub Actions for continuous integration. The CI pipeline includes:
+
+- **Linting**: Ensures code follows best practices and style guidelines
+- **Testing**: Runs the test suite with coverage reporting
+- **Building**: Compiles the application for verification
+- **Benchmarking**: Runs performance benchmarks
+- **Releasing**: Automatically creates releases with binaries for multiple platforms when tags are pushed
+
+To trigger a new release, create and push a tag:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
 ```
 
 ## License
