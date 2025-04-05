@@ -1,4 +1,4 @@
-.PHONY: all build clean proto run-server run-client help
+.PHONY: all build clean proto run-server run-client help deps test-deps test test-cover test-html bench bench-storage
 
 # Binary names
 SERVER_BINARY=server
@@ -22,6 +22,30 @@ all: clean build
 
 build: proto build-server build-client
 
+# Install all dependencies
+deps: proto-deps test-deps
+	@echo "Installing Go dependencies..."
+	go mod download
+	go mod tidy
+
+# Install protocol buffer dependencies
+proto-deps:
+	@echo "Checking Protocol Buffer compiler..."
+	@if ! command -v protoc &> /dev/null; then \
+		echo "protoc not found. Please install Protocol Buffers compiler:"; \
+		echo "  macOS: brew install protobuf"; \
+		echo "  Linux: apt-get install protobuf-compiler"; \
+		exit 1; \
+	fi
+	@echo "Installing Protocol Buffer Go plugins..."
+	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+# Install test dependencies
+test-deps:
+	@echo "Installing test dependencies..."
+	go get github.com/stretchr/testify/assert@latest
+
 build-server:
 	@echo "Building server..."
 	@mkdir -p $(BUILD_DIR)
@@ -44,6 +68,18 @@ clean:
 test:
 	@echo "Running tests..."
 	go test -v ./...
+
+# Run tests with coverage
+test-cover:
+	@echo "Running tests with coverage..."
+	go test ./internal/... -coverprofile=coverage.out
+	go tool cover -func=coverage.out
+
+# Generate HTML coverage report
+test-html:
+	@echo "Generating HTML coverage report..."
+	go test ./internal/... -coverprofile=coverage.out
+	go tool cover -html=coverage.out
 
 # Run development versions
 run-server:
@@ -73,6 +109,16 @@ build-all: clean
 	GOOS=windows GOARCH=amd64 go build $(LDFLAGS) -o $(BUILD_DIR)/$(SERVER_BINARY)-windows-amd64.exe ./cmd/server
 	GOOS=windows GOARCH=amd64 go build $(LDFLAGS) -o $(BUILD_DIR)/$(CLIENT_BINARY)-windows-amd64.exe ./cmd/client
 
+# Run benchmarks
+bench:
+	@echo "Running all benchmarks..."
+	go test ./... -bench=. -benchmem
+
+# Run storage benchmarks
+bench-storage:
+	@echo "Running storage benchmarks..."
+	go test ./internal/storage -bench=. -benchmem
+
 help:
 	@echo "Available commands:"
 	@echo "  make              - Build everything (same as 'make all')"
@@ -80,8 +126,15 @@ help:
 	@echo "  make build-server - Build only the server binary"
 	@echo "  make build-client - Build only the client binary"
 	@echo "  make proto        - Generate code from protobuf definitions"
+	@echo "  make deps         - Install all dependencies"
+	@echo "  make proto-deps   - Install Protocol Buffer dependencies"
+	@echo "  make test-deps    - Install testing dependencies"
 	@echo "  make clean        - Remove build artifacts"
 	@echo "  make test         - Run tests"
+	@echo "  make test-cover   - Run tests with coverage summary"
+	@echo "  make test-html    - Generate HTML coverage report"
+	@echo "  make bench        - Run all benchmarks"
+	@echo "  make bench-storage - Run storage benchmarks"
 	@echo "  make run-server   - Run the server for development"
 	@echo "  make run-client   - Run the client (use ARGS='list' for cli args)"
 	@echo "  make build-all    - Build binaries for multiple platforms"
