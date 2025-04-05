@@ -1,4 +1,4 @@
-.PHONY: all build clean proto run-server run-client help deps test-deps test test-cover test-html bench bench-storage
+.PHONY: all build clean proto run-server run-client help deps test-deps test test-cover test-html bench bench-storage lint lint-install lint-fix
 
 # Binary names
 SERVER_BINARY=server
@@ -23,7 +23,7 @@ all: clean build
 build: proto build-server build-client
 
 # Install all dependencies
-deps: proto-deps test-deps
+deps: proto-deps test-deps lint-install
 	@echo "Installing Go dependencies..."
 	go mod download
 	go mod tidy
@@ -45,6 +45,24 @@ proto-deps:
 test-deps:
 	@echo "Installing test dependencies..."
 	go get github.com/stretchr/testify/assert@latest
+
+# Linting
+lint-install:
+	@echo "Installing golangci-lint..."
+	@if ! command -v golangci-lint &> /dev/null; then \
+		echo "Installing golangci-lint..."; \
+		go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest; \
+	else \
+		echo "golangci-lint already installed"; \
+	fi
+
+lint:
+	@echo "Running linters..."
+	$(shell go env GOPATH)/bin/golangci-lint run ./...
+
+lint-fix:
+	@echo "Running linters with auto-fix..."
+	$(shell go env GOPATH)/bin/golangci-lint run --fix ./...
 
 build-server:
 	@echo "Building server..."
@@ -129,10 +147,13 @@ help:
 	@echo "  make deps         - Install all dependencies"
 	@echo "  make proto-deps   - Install Protocol Buffer dependencies"
 	@echo "  make test-deps    - Install testing dependencies"
+	@echo "  make lint-install - Install golangci-lint"
 	@echo "  make clean        - Remove build artifacts"
 	@echo "  make test         - Run tests"
 	@echo "  make test-cover   - Run tests with coverage summary"
 	@echo "  make test-html    - Generate HTML coverage report"
+	@echo "  make lint         - Run linters"
+	@echo "  make lint-fix     - Run linters with auto-fix"
 	@echo "  make bench        - Run all benchmarks"
 	@echo "  make bench-storage - Run storage benchmarks"
 	@echo "  make run-server   - Run the server for development"

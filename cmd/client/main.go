@@ -32,8 +32,15 @@ func main() {
 		return
 	}
 
-	// Set up a connection to the server
-	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	// Process command line arguments
+	if len(os.Args) < 2 {
+		printUsage()
+		os.Exit(1)
+	}
+
+	// Use recommended connection creation with NewClient
+	conn, err := grpc.NewClient(address,
+		grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("Failed to connect: %v", err)
 	}
@@ -41,12 +48,6 @@ func main() {
 
 	// Create client
 	todoClient := client.NewTodoClient(todov1.NewTodoServiceClient(conn))
-
-	// Process command line arguments
-	if len(os.Args) < 2 {
-		printUsage()
-		return
-	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
