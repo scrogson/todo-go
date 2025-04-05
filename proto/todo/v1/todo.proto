@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package todo.v1;
+
+option go_package = "pkg/todo/v1;todov1";
+
+service TodoService {
+  rpc ListTodos(ListTodosRequest) returns (ListTodosResponse);
+  rpc AddTodo(AddTodoRequest) returns (AddTodoResponse);
+  rpc DeleteTodo(DeleteTodoRequest) returns (DeleteTodoResponse);
+  rpc UpdateTodo(UpdateTodoRequest) returns (UpdateTodoResponse);
+  rpc CompleteTodo(CompleteTodoRequest) returns (CompleteTodoResponse);
+}
+
+message Todo {
+  string id = 1;
+  string title = 2;
+  bool completed = 3;
+}
+
+message ListTodosRequest {}
+
+message ListTodosResponse {
+  repeated Todo todos = 1;
+}
+
+message AddTodoRequest {
+  string title = 1;
+}
+
+message AddTodoResponse {
+  Todo todo = 1;
+}
+
+message DeleteTodoRequest {
+  string id = 1;
+}
+
+message DeleteTodoResponse {
+  bool success = 1;
+}
+
+message UpdateTodoRequest {
+  string id = 1;
+  string title = 2;
+}
+
+message UpdateTodoResponse {
+  bool success = 1;
+}
+
+message CompleteTodoRequest {
+  string id = 1;
+}
+
+message CompleteTodoResponse {
+  bool success = 1;
+}

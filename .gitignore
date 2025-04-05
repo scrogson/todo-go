@@ -1,0 +1,42 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Generated protocol buffer code
+# pkg/todo/v1/*.pb.go
+# pkg/todo/v1/*.pb.gw.go
+
+# Dependency directories (remove if using Go modules)
+vendor/
+
+# Go workspace file
+go.work
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build output directories
+bin/
+dist/
