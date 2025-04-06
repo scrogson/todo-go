@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/oklog/ulid/v2"
-	todov1 "github.com/scrogson/todo-golang/pkg/todo/v1"
+	todov1 "github.com/scrogson/todo-go/pkg/todo/v1"
 )
 
 // InMemoryStorage implements TodoStorage interface with in-memory storage

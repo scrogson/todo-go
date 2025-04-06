@@ -3,7 +3,7 @@ package client
 import (
 	"context"
 
-	todov1 "github.com/scrogson/todo-golang/pkg/todo/v1"
+	todov1 "github.com/scrogson/todo-go/pkg/todo/v1"
 )
 
 // TodoClient wraps the gRPC client with helpful methods

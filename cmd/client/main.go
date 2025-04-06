@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/scrogson/todo-golang/internal/client"
-	todov1 "github.com/scrogson/todo-golang/pkg/todo/v1"
+	"github.com/scrogson/todo-go/internal/client"
+	todov1 "github.com/scrogson/todo-go/pkg/todo/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )

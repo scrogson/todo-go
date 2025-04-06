@@ -5,7 +5,7 @@ import (
 	"errors"
 	"testing"
 
-	todov1 "github.com/scrogson/todo-golang/pkg/todo/v1"
+	todov1 "github.com/scrogson/todo-go/pkg/todo/v1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"google.golang.org/grpc"

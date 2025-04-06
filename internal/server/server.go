@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	"github.com/oklog/ulid/v2"
-	"github.com/scrogson/todo-golang/internal/storage"
-	todov1 "github.com/scrogson/todo-golang/pkg/todo/v1"
+	"github.com/scrogson/todo-go/internal/storage"
+	todov1 "github.com/scrogson/todo-go/pkg/todo/v1"
 )
 
 // TodoServer implements the TodoService gRPC service

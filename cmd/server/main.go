@@ -10,9 +10,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/scrogson/todo-golang/internal/server"
-	"github.com/scrogson/todo-golang/internal/storage"
-	todov1 "github.com/scrogson/todo-golang/pkg/todo/v1"
+	"github.com/scrogson/todo-go/internal/server"
+	"github.com/scrogson/todo-go/internal/storage"
+	todov1 "github.com/scrogson/todo-go/pkg/todo/v1"
 	"google.golang.org/grpc"
 )
 

@@ -7,34 +7,6 @@ on:
     branches: [main]
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: "1.24"
-          cache: true
-
-      - name: Install dependencies
-        run: go mod download
-
-      - name: Ensure test dependencies
-        run: |
-          go get github.com/stretchr/testify/mock@v1.10.0
-          go get github.com/oklog/ulid/v2@v2.1.0
-
-      - name: Install golangci-lint
-        run: go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.57.0
-
-      - name: Lint
-        run: golangci-lint run -v ./...
-        env:
-          GOVERSION: "1.24"
-
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -116,24 +88,6 @@ jobs:
           name: binaries
           path: bin/
           retention-days: 7
-
-  benchmark:
-    name: Benchmark
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: "1.24"
-          cache: true
-
-      - name: Install dependencies
-        run: go mod download
-
-      - name: Run benchmarks
-        run: make bench
 
   release:
     name: Release

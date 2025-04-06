@@ -11,10 +11,10 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/test/bufconn"
 
-	"github.com/scrogson/todo-golang/internal/client"
-	"github.com/scrogson/todo-golang/internal/server"
-	"github.com/scrogson/todo-golang/internal/storage"
-	todov1 "github.com/scrogson/todo-golang/pkg/todo/v1"
+	"github.com/scrogson/todo-go/internal/client"
+	"github.com/scrogson/todo-go/internal/server"
+	"github.com/scrogson/todo-go/internal/storage"
+	todov1 "github.com/scrogson/todo-go/pkg/todo/v1"
 )
 
 // setupGRPCServer creates an in-memory gRPC server using bufconn for testing

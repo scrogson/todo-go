@@ -1,6 +1,6 @@
 # Todo CLI Application
 
-[![Go CI](https://github.com/scrogson/todo-golang/actions/workflows/ci.yml/badge.svg)](https://github.com/scrogson/todo-golang/actions/workflows/ci.yml)
+[![Go CI](https://github.com/scrogson/todo-go/actions/workflows/ci.yml/badge.svg)](https://github.com/scrogson/todo-go/actions/workflows/ci.yml)
 
 A simple Todo application built with Go, Protocol Buffers, and gRPC.
 
@@ -31,7 +31,7 @@ make deps
 Clone the repository:
 
 ```bash
-git clone https://github.com/scrogson/todo-golang.git
+git clone https://github.com/scrogson/todo-go.git
 cd todo-golang
 ```
 
