@@ -40,3 +40,4 @@ Thumbs.db
 # Build output directories
 bin/
 dist/
+todo.db

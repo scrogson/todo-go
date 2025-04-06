@@ -1,4 +1,4 @@
-.PHONY: all build clean proto run-server run-client help deps test-deps test test-cover test-html bench bench-storage lint lint-install lint-fix
+.PHONY: all build clean proto run-server run-server-sqlite run-client help deps test-deps test test-cover test-html bench bench-storage lint lint-install lint-fix
 
 # Binary names
 SERVER_BINARY=server
@@ -17,6 +17,9 @@ BUILD_TIME ?= $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 
 # Linker flags
 LDFLAGS=-ldflags "-X main.version=$(VERSION) -X main.commit=$(COMMIT) -X main.buildTime=$(BUILD_TIME)"
+
+# Database path
+DB_PATH ?= todo.db
 
 all: clean build
 
@@ -101,8 +104,12 @@ test-html:
 
 # Run development versions
 run-server:
-	@echo "Running server..."
-	go run ./cmd/server
+	@echo "Running server with in-memory storage..."
+	go run ./cmd/server -storage=memory
+
+run-server-sqlite:
+	@echo "Running server with SQLite storage using $(DB_PATH)..."
+	go run ./cmd/server -storage=sqlite -db=$(DB_PATH)
 
 run-client:
 	@echo "Running client..."
@@ -156,7 +163,8 @@ help:
 	@echo "  make lint-fix     - Run linters with auto-fix"
 	@echo "  make bench        - Run all benchmarks"
 	@echo "  make bench-storage - Run storage benchmarks"
-	@echo "  make run-server   - Run the server for development"
+	@echo "  make run-server   - Run the server with in-memory storage"
+	@echo "  make run-server-sqlite - Run the server with SQLite storage"
 	@echo "  make run-client   - Run the client (use ARGS='list' for cli args)"
 	@echo "  make build-all    - Build binaries for multiple platforms"
 	@echo "  make help         - Show this help message" 
